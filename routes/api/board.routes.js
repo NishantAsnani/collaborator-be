@@ -12,10 +12,9 @@ router.get('/:id/collaborators',auth,boardControllers.getAllBoardMembers)
 
 router.post('/',auth,boardControllers.createBoard)
 
+router.patch('/:id',auth,boardControllers.editBoard)
 
-// router.patch('/:id',auth,boardControllers.editUser)
-
-// router.delete('/:id',auth,boardControllers.deleteUser)    
+router.delete('/:id',auth,boardControllers.deleteBoard)    
 
 
 
