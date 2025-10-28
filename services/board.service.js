@@ -8,9 +8,7 @@ async function getAllBoards(queryParams) {
       $or: [
         { owner: userId },
         {
-          collaborators: {
-            $in: [userId]
-          },
+          "collaborators.userId": userId
         }
       ]
     }
@@ -37,9 +35,9 @@ async function getAllBoards(queryParams) {
   }
 }
 
-async function fetchBoardById(userId) {
+async function fetchBoardById(boardId) {
   try {
-    const board = await Board.findById(userId);
+    const board = await Board.findById(boardId);
 
     return board;
   } catch (err) {
@@ -67,7 +65,7 @@ async function fetchAllCollaborators(board) {
   try {
     const collaboratorsDetails = await User.find({
       _id: {
-        $in: board.collaborators
+        $in: board.collaborators.map(collab => collab.userId.toString())
       },
     }
     ).select('name')
@@ -82,6 +80,7 @@ async function fetchAllCollaborators(board) {
 async function editBoard(boardId, editParams) {
   try{
     const {name,description,collaborators}=editParams;
+    
     const updatedData={};
         if(name) updatedData.name=name;
         if(description) updatedData.description=description;

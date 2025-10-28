@@ -16,8 +16,17 @@ const boardSchema = new Schema({
         required:true
     },
     collaborators:[{
+        userId:{
         type:Schema.Types.ObjectId,
         ref:'User'
+        },
+        role:{
+            type:String,
+            enum:['viewer','editor'],
+            default:'viewer'
+        }
+        
+        
     }],
     content: { type: Array, default: [] },
     

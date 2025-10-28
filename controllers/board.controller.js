@@ -36,7 +36,7 @@ async function getAllBoards(req, res) {
 
 async function getBoardById(req, res) {
   try {
-    const boardId = req.params.boardId;
+    const boardId = req.params.id;
     
     if(!boardId) {
       return sendErrorResponse(
@@ -61,8 +61,8 @@ async function getBoardById(req, res) {
     
       return sendSuccessResponse(
         res,
-        fetchUser,
-        "User Retrieved Successfully",
+        fetchBoard,
+        "Board Retrieved Successfully",
         STATUS_CODE.OK
       );
     
@@ -226,14 +226,9 @@ async function editBoard(req,res){
             STATUS_CODE.NOT_FOUND
           );
     }
-    if(boardDetails.owner.toString()!==req.user.id){
-      return sendErrorResponse(
-        res,
-        {},
-        "Only the owner can edit the board",
-        STATUS_CODE.UNAUTHORIZED
-      );
-    }
+    
+
+    
 
     const updatedBoard=await boardServices.editBoard(boardId,{name,description,collaborators});
 

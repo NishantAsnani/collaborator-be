@@ -8,7 +8,6 @@ const bodyParser=require('body-parser')
 const {dbconnection} = require('./db')
 const {Server}=require('socket.io')
 const http=require('http')
-const Board=require('./models/boards')
 const server=http.createServer(app)
 const clientUrl=process.env.CLIENT_URL || 'http://localhost:5173'
 const handleSockets=require('./sockets')
@@ -25,9 +24,7 @@ const io=new Server(server,{
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
-
   handleSockets(socket, io);
-  
 });
 
 dbconnection();
