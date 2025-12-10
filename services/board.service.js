@@ -3,7 +3,7 @@ const User = require("../models/users");
 
 async function getAllBoards(queryParams) {
   try {
-    const { page, limit, userId } = queryParams;
+    const { page=1, limit, userId } = queryParams;
     let whereClause = {
       $or: [
         { owner: userId },

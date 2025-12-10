@@ -25,8 +25,6 @@ const boardSchema = new Schema({
             enum:['viewer','editor'],
             default:'viewer'
         }
-        
-        
     }],
     content: { type: Array, default: [] },
     
