@@ -12,7 +12,6 @@ const inviteSchema=new Schema({
     boardId:{
         type:Schema.Types.ObjectId,
         ref:'board',
-        required:true
     },
     status:{
         type:String,
@@ -30,8 +29,7 @@ const inviteSchema=new Schema({
     },
     invitedBy:{
         type:Schema.Types.ObjectId,
-        ref:"User",
-        required:true
+        ref:'User',
     }
 },{timestamps:true})
 

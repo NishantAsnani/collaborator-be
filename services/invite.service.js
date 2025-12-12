@@ -1,17 +1,11 @@
 const invite = require("../models/invites");
-const User = require("../models/users");
+
 
 
 async function createNewInvite( inviteParams ) {
     try {
         const { boardId, email, boardRole,invitedBy,token } = inviteParams
-
-
-
-        
         const expiresAt=(Date.now()+ 1000*60*60*24) //1 Day Expire time
-
-
         const newInvite=await invite.create({
             token,
             email,
@@ -27,7 +21,23 @@ async function createNewInvite( inviteParams ) {
     }
 }
 
+async function acceptNewInvite(inviteParams){
+    try{
+        const {tokenInvite,Board,user}=inviteParams;
+
+        Board.collaborators.push({
+            userId:user.id,
+            role:tokenInvite.boardRole
+        })
+
+        await Board.save();
+    }catch(err){
+        throw new Error(err)
+    }
+}
+
 
 module.exports = {
-    createNewInvite
+    createNewInvite,
+    acceptNewInvite
 }
